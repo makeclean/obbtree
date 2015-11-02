@@ -70,6 +70,14 @@ int main(int argc, char* argv[]) {
     #pragma omp atomic
     results[result] += 1;
   }
+
+  #ifdef OPENMP_ 
+  if(omp_get_thread_num() == 0 )
+    trn->print_tree();    
+  #else
+  trn->print_tree();
+  #endif
+    
   } // end parallel section
 
 
@@ -80,6 +88,7 @@ int main(int argc, char* argv[]) {
   for ( int i = 0 ; i < 15 ; i++ ) {
     std::cout << i << " " << results[i] << std::endl;
   }
+
   
   return 0;
 }
